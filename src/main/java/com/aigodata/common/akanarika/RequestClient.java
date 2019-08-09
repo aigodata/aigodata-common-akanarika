@@ -1,5 +1,8 @@
 package com.aigodata.common.akanarika;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,12 +55,12 @@ public class RequestClient extends HttpClient {
 	 * @return
 	 * @throws Exception
 	 */
-	public JSONObject send(RequestHeader header, RequestBody requestBody) throws Exception {
-		JSONObject result = new JSONObject();
+	public Map send(RequestHeader header, RequestBody requestBody) throws Exception {
+		Map result = new HashMap();
 		Request req = common(header, requestBody);
 		Response res = https.newCall(req).execute();
 		String responseBody = res.body().string();
-		result.put("body", responseBody);
+		result.put("response", responseBody);
 		JSONObject responseHeader = ResponseHeader.getJson(res);
 		result.put("header", responseHeader);
 		return result;
@@ -85,12 +88,12 @@ public class RequestClient extends HttpClient {
 	 * @return
 	 * @throws Exception
 	 */
-	public JSONObject send() throws Exception {
-		JSONObject result = new JSONObject();
+	public Map send() throws Exception {
+		Map result = new HashMap();
 		Request req = common(header, body);
 		Response res = https.newCall(req).execute();
 		String responseBody = res.body().string();
-		result.put("body", responseBody);
+		result.put("response", responseBody);
 		JSONObject responseHeader = ResponseHeader.getJson(res);
 		result.put("header", responseHeader);
 		return result;

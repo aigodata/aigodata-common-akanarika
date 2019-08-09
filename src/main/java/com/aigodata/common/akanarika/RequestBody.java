@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.aigodata.common.akanarika.constants.RequestRawFormat;
 
+import net.sf.json.JSONObject;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody.Builder;
 
@@ -21,6 +22,12 @@ import okhttp3.MultipartBody.Builder;
  *
  */
 public class RequestBody {
+	public static void main(String[] args) {
+		JSONObject s = new JSONObject();
+		String u = "{\"d\":null}";
+		s.put("a", u);
+		System.out.println(s);
+	}
 
 	private Logger logger = LoggerFactory.getLogger(RequestClient.class);
 	private List<Map> params = new ArrayList();
