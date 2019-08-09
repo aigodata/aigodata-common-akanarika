@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.aigodata.common.akanarika.constants.RequestRawFormat;
-import com.aigodata.common.akanarika.util.StringUtil;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody.Builder;
@@ -35,6 +34,13 @@ public class RequestBody {
 		params.add(map);
 	}
 
+	public String ifNull(Object obj) {
+		if (obj == null || "".equals(obj.toString())) {
+			return "";
+		}
+		return obj.toString();
+	}
+ 
 	public void addFile(String $key, String fileName, byte[] $value) {
 		Map map = new HashMap();
 		map.put("key", $key);
@@ -56,8 +62,8 @@ public class RequestBody {
 		String result = "";
 		if (params != null && params.size() > 0) {
 			for (Map param : params) {
-				String key = StringUtil.ifNull(param.get("key"));
-				String value = StringUtil.ifNull(param.get("value"));
+				String key = ifNull(param.get("key"));
+				String value = ifNull(param.get("value"));
 				sb.append(String.format("&%s=%s", key, value));
 			}
 			result = sb.substring(1);
@@ -76,14 +82,14 @@ public class RequestBody {
 		build.setType(MediaType.parse("multipart/form-data"));
 		if (params != null && params.size() > 0) {
 			for (Map param : params) {
-				String key = StringUtil.ifNull(param.get("key"));
+				String key = ifNull(param.get("key"));
 				if (param.containsKey("fileName")) {// 文件
-					String fileName = StringUtil.ifNull(param.get("fileName"));
+					String fileName = ifNull(param.get("fileName"));
 					byte[] value = (byte[]) param.get("value");
 					build.addFormDataPart(key, fileName,
 							okhttp3.RequestBody.create(MediaType.parse("application/octet-stream"), value));
 				} else {// 字符串
-					String value = StringUtil.ifNull(param.get("value"));
+					String value = ifNull(param.get("value"));
 					build.addFormDataPart(key, value);
 				}
 			}

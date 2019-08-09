@@ -8,8 +8,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.aigodata.common.akanarika.util.StringUtil;
-
 import okhttp3.Request.Builder;
 
 public class RequestHeader {
@@ -23,12 +21,19 @@ public class RequestHeader {
 		params.add(map);
 	}
 
+	String ifNull(Object obj) {
+		if (obj == null || "".equals(obj.toString())) {
+			return "";
+		}
+		return obj.toString();
+	}
+
 	void build(Builder build) {
 		if (params != null && params.size() > 0) {
 			for (int i = 0; i < params.size(); i++) {
 				Map map = params.get(i);
-				String key = StringUtil.ifNull(map.get("key"));
-				String value = StringUtil.ifNull(map.get("value"));
+				String key = ifNull(map.get("key"));
+				String value = ifNull(map.get("value"));
 				build.addHeader(key, value);
 				logger.debug(key + ":" + value);
 			}
