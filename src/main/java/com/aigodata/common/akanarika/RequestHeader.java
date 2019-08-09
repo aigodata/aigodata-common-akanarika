@@ -25,12 +25,13 @@ public class RequestHeader {
 
 	void build(Builder build) {
 		if (params != null && params.size() > 0) {
-			params.stream().forEach(map -> {
+			for (int i = 0; i < params.size(); i++) {
+				Map map = params.get(i);
 				String key = StringUtil.ifNull(map.get("key"));
 				String value = StringUtil.ifNull(map.get("value"));
 				build.addHeader(key, value);
 				logger.debug(key + ":" + value);
-			});
+			}
 		}
 	}
 }
