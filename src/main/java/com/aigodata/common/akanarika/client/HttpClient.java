@@ -1,5 +1,6 @@
 package com.aigodata.common.akanarika.client;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import com.aigodata.common.akanarika.RequestAuthorization;
@@ -8,6 +9,7 @@ import com.aigodata.common.akanarika.RequestHeader;
 import com.aigodata.common.akanarika.constants.RequestContentType;
 import com.aigodata.common.akanarika.constants.RequestMethod;
 
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 
@@ -41,6 +43,7 @@ public abstract class HttpClient {
 	 */
 	public HttpClient url(String url) {
 		this.url = url;
+
 		return this;
 	}
 
@@ -54,6 +57,7 @@ public abstract class HttpClient {
 		this.method = method;
 		return this;
 	}
+
 	/***
 	 * method,可选,默认:Get方式
 	 * 
@@ -74,6 +78,7 @@ public abstract class HttpClient {
 		this.contentType = contentType;
 		return this;
 	}
+
 	/***
 	 * contentType,可选,默认:none
 	 * 
@@ -116,4 +121,22 @@ public abstract class HttpClient {
 		return this;
 	}
 
+	public Map send(RequestHeader header, RequestBody requestBody) throws Exception {
+		return null;
+	}
+
+	public void send(Callback callback) throws Exception {
+	}
+
+	public void send(RequestHeader header, RequestBody requestBody, Callback callback) throws Exception {
+
+	}
+
+	public String result() throws Exception {
+		return url;
+	}
+
+	public Map send() throws Exception {
+		return null;
+	}
 }
