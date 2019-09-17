@@ -66,6 +66,12 @@ public class RequestClient extends HttpClient {
 		return result;
 	}
 
+	public Response response(RequestHeader header, RequestBody requestBody) throws Exception {
+		Request req = common(header, requestBody);
+		Response res = https.newCall(req).execute();
+		return res;
+	}
+
 	/***
 	 * 发送请求-同步
 	 * 
@@ -79,7 +85,7 @@ public class RequestClient extends HttpClient {
 		Response res = https.newCall(req).execute();
 		return res.body().string();
 	}
-	
+
 	/***
 	 * 发送请求-同步
 	 * 
@@ -97,6 +103,13 @@ public class RequestClient extends HttpClient {
 		JSONObject responseHeader = ResponseHeader.getJson(res);
 		result.put("header", responseHeader);
 		return result;
+	}
+	
+
+	public Response response() throws Exception {
+		Request req = common(header, body);
+		Response res = https.newCall(req).execute();
+		return res;
 	}
 
 	/***

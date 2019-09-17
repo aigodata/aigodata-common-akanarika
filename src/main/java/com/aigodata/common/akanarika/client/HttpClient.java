@@ -12,6 +12,7 @@ import com.aigodata.common.akanarika.constants.RequestMethod;
 import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Response;
 
 /***
  * Http网络请求构造器
@@ -130,6 +131,14 @@ public abstract class HttpClient {
 
 	public void send(RequestHeader header, RequestBody requestBody, Callback callback) throws Exception {
 
+	}
+
+	public Response response(RequestHeader header, RequestBody requestBody) throws Exception {
+		return null;
+	}
+
+	public Response response() throws Exception {
+		return null;
 	}
 
 	public String result() throws Exception {
