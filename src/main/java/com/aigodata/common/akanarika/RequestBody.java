@@ -32,6 +32,7 @@ public class RequestBody {
 	private Logger logger = LoggerFactory.getLogger(RequestClient.class);
 	private List<Map> params = new ArrayList();
 	private String rowBody = "";
+	private byte[] rowBodyBytes = null;
 	private RequestRawFormat rawFormat = null;
 
 	public void add(String $key, Object $value) {
@@ -47,7 +48,7 @@ public class RequestBody {
 		}
 		return obj.toString();
 	}
- 
+
 	public void addFile(String $key, String fileName, byte[] $value) {
 		Map map = new HashMap();
 		map.put("key", $key);
@@ -58,6 +59,14 @@ public class RequestBody {
 
 	public void set(RequestRawFormat rawFormat, String rowBody) {
 		this.rowBody = rowBody;
+	}
+
+	public void set(RequestRawFormat rawFormat, byte[] bytes) {
+		this.rowBodyBytes = bytes;
+	}
+
+	public void set(int rawFormat, byte[] bytes) {
+		this.rowBodyBytes = bytes;
 	}
 
 	public void set(int rawFormat, String rowBody) {
@@ -82,6 +91,10 @@ public class RequestBody {
 	String getRawBody() {
 		logger.debug("body:" + rowBody);
 		return rowBody;
+	}
+
+	byte[] getRawBodyBytes() {
+		return rowBodyBytes;
 	}
 
 	okhttp3.RequestBody getMultipartBody() throws IOException {
@@ -119,6 +132,8 @@ public class RequestBody {
 			mediaType = MediaType.parse("text/xml");
 		} else if (RequestRawFormat.HTML == rawFormat) {
 			mediaType = MediaType.parse("text/html");
+		} else if (RequestRawFormat.BINARY == rawFormat) {
+			mediaType = MediaType.parse("application/octet-stream");
 		}
 		return mediaType;
 	}
