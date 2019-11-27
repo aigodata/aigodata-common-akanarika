@@ -142,7 +142,7 @@ public abstract class HttpClient {
 	}
 
 	public String result() throws Exception {
-		return url;
+		return null;
 	}
 
 	public Map send() throws Exception {
